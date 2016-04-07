@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
+    <canvas id="mycanvas" width="3000" height="4000" style="border:1px solid red"></canvas>
+    <script type="text/javascript">
+    	var canvas = document.getElementById("mycanvas");
+    	var context = canvas.getContext("2d");
+    	var image = new Image();
+    	image.src = "image/1.jpg";
+    	image.onload = function(){
+    		var x = -200,y=20;
+    		setInterval(function(){
+    			context.clearRect(0,0,400,400);//清除画布
+    			context.save();
+    			context.translate(x,y);//改变画布原点，图像是根据画布原点位置来绘制的，所以每次绘制时图像都会跟随着画布平移，看起来效果就像是图像平移了
+    			context.drawImage(image,0,0);
+    			context.restore();
+    			x+=1;
+    			if(x>=400){
+    				x = -200;
+    			}
+    		},1000/60)
+    	};
+    </script>
+    </body>
+</html>

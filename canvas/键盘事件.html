@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
+    <canvas id="mycanvas" width="3000" height="4000" style="border:1px solid red"></canvas>
+    <script type="text/javascript">
+    	var canvas = document.getElementById("mycanvas");
+    	var context = canvas.getContext("2d");
+    	document.addEventListener("keydown",onKeyDown,false);
+    	document.addEventListener("keyup",onKeyUp,false);
+    	setInterval(update,1000/60);
+    	var isShiftDown=false;
+    	var text = [];
+    	var string ="";
+
+    	function onKeyDown(e){
+    		var code = e.keyCode;
+    		if(code ==16){
+    			isShiftDown=true;
+    		}
+    		if(code>=65&&code<=90){
+    			if(isShiftDown){
+    				string+=String.fromCharCode(code);
+    			}else{
+    				string+=String.fromCharCode(code+32);
+    			}
+    		}
+
+    	}
+    	function onKeyUp(e){
+    		if(e.keyCode==16){
+    			isShiftDown =false;
+    		}
+    	}
+    	var x=10,y=40;
+    	function update(){
+    		context.clearRect(0,0,400,400);
+    		context.save();
+    		context.font = "40px Arial";
+    		context.fillText(string,x,y);
+    		if(context.measureText(string).width>=360){
+    			text.push(string);
+    			string="";
+    			y+=40;
+    		}
+
+    		for(var i=0; i<text.length; i++){
+    			context.fillText(text[i],x,(i+1)*40);
+    		}
+    		context.restore();
+    	}
+    </script>
+    </body>
+</html>

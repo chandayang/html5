@@ -1,0 +1,121 @@
+
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+</head>
+<body>
+<canvas width="500" height="800" style="background:yellow"  id="canvas">
+您的浏览器当前版本不支持canvas标签
+</canvas>
+<script>
+//获取画布DOM  还不可以操作
+var canvas=document.getElementById('canvas');
+//alert(canvas);
+//设置绘图环境
+var cxt=canvas.getContext('2d');
+//alert(cxt);
+//画一条线段。
+	//开启新路径
+	cxt.beginPath();
+	//设定画笔的宽度
+	cxt.lineWidth=10;
+	//设置画笔的颜色
+	cxt.strokeStyle="#ff9900";
+	//设定笔触的位置
+	cxt.moveTo(20,20);
+	//设置移动的方式
+	cxt.lineTo(100,20);
+	//画线
+	cxt.stroke();
+	//封闭路径
+	cxt.closePath();
+//画一个空心圆形  凡是路径图形必须先开始路径，画完图之后必须结束路径
+	//开始新路径
+	cxt.beginPath();
+	//重新设置画笔
+	cxt.lineWidth=3;
+	cxt.strokeStyle="green";
+	cxt.arc(200,200,50,0,360,false);
+	cxt.stroke();
+	//封闭新路径
+	cxt.closePath();
+//画一个实心圆形
+	cxt.beginPath();
+	//设置填充的颜色
+	cxt.fillStyle="rgb(255,0,0)";
+	cxt.arc(200,100,50,0,360,false);//arc(x,y,r,start,stop)用来画圆
+	cxt.fill();
+	cxt.stroke();
+	cxt.closePath();
+//画一个矩形
+	cxt.beginPath();
+	cxt.rect(300,20,100,100);
+	cxt.stroke();
+	cxt.closePath();
+	//其他方法 建议使用此方式
+	cxt.strokeRect(300,150,100,100)
+	//实心矩形
+	cxt.beginPath();
+	cxt.rect(300,270,100,100);
+	cxt.fill();
+	cxt.closePath();
+	//其他方法 建议使用此方式
+	cxt.fillRect(300,390,100,100);//fillRect(x,y,width,height) 方法定义了矩形当前的填充方式。
+//设置文字
+	cxt.font="40px 宋体";//css font属性
+	cxt.fillText("无兄弟，不编程",20,300);//fillText(text,x,y) - 在 canvas 上绘制实心的文本
+	//将笔触设置为1像素
+	cxt.lineWidth=1;
+	cxt.strokeText("无兄弟，不编程",20,350);//strokeText(text,x,y) - 在 canvas 上绘制空心的文本
+//画图 把一幅图片画到画布中  注意webkit内核的浏览器 chrome和猎豹不支持
+	var img =new Image();
+	img.src="xiaomm.jpg";
+	cxt.drawImage(img,20,370,230,306);
+//画一个三角形
+	cxt.beginPath();
+	//移动至开始点
+	cxt.moveTo(300,500);//moveTo(x,y) 定义线条开始坐标
+	cxt.lineTo(300,600);//lineTo(x,y) 定义线条结束坐标
+	cxt.lineTo(400,550);
+	cxt.closePath();//填充或者画路径需要先闭合路径再画
+	cxt.stroke();//stroke() 方法会实际地绘制出通过 moveTo() 和 lineTo() 方法定义的路径。默认颜色是黑色。
+	//实心三角形
+	cxt.beginPath();
+	//移动至开始点
+	cxt.moveTo(300,600);
+	cxt.lineTo(300,700);
+	cxt.lineTo(400,650);
+	cxt.closePath();//closePath() 方法创建从当前点到开始点的路径。
+	cxt.fill();//fill() 方法填充当前的图像（路径）。默认颜色是黑色。
+            //旋转图片 图片
+	//设置旋转环境
+	cxt.save();//save()保存当前环境的状态。
+		//在异次元空间重置0,0点的位置
+		cxt.translate(20,20);//translate() 方法重新映射画布上的 (0,0) 位置。
+	//图片/形状旋转
+		//设置旋转角度  参数是弧度  角度 0-360 弧度=角度*Math.PI/180
+		cxt.rotate(-30*Math.PI/180);
+		//旋转一个线段
+		cxt.lineWidth=10;
+		cxt.beginPath();
+		cxt.moveTo(0,0);
+		cxt.lineTo(20,100);
+		cxt.stroke();
+		cxt.closePath();
+	//将旋转之后的元素放回原画布
+	           cxt.restore();// restore()返回之前保存过的路径状态和属性。
+	//过程不可颠倒 先设置00点在旋转角度，然后画图
+
+//旋转小萌萌
+	cxt.save();
+	cxt.translate(20,370);//translate() 方法重新映射画布上的 (0,0) 位置。
+	cxt.rotate(-10*Math.PI/180);//rotate() 方法旋转当前的绘图。
+	var img =new Image();
+	img.src="xiaomm.jpg";
+	cxt.drawImage(img,0,0,230,306);//drawImage(image,x,y)--把一幅图像放置到画布上
+	cxt.restore();
+</script>
+
+</body>
+</html>

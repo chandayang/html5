@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
+    <canvas id="mycanvas" width="3000" height="4000" style="border:1px solid red"></canvas>
+    <script type="text/javascript">
+    	var canvas = document.getElementById("mycanvas");
+    	var context = canvas.getContext("2d");
+    	var mouseDown = false;
+    	var mouseX=0;
+    	var mouseY = 0;
+    	var preX =0;
+    	var preY =0;
+    	canvas.addEventListener("mousedown",onMouseDown,false);
+    	canvas.addEventListener("mousemove",onMouseMove,false);
+    	canvas.addEventListener("mouseup",onMouseUp,false);
+
+    	function onMouseDown(e){
+    		mouseDown = true;
+    		preX = e.pageX-canvas.clientLeft;
+    		preY = e.pageY - canvas.clientTop;
+    	}
+    	function onMouseMove(e){
+    		if(mouseDown){
+    			mouseX = e.pageX-canvas.clientLeft;
+    			mouseY = e.pageY-canvas.clientTop;
+    			context.lineWidth = 2;
+    			context.beginPath();
+    			context.moveTo(preX,preY);
+    			context.lineTo(mouseX,mouseY);
+    			context.stroke();
+    			preX = mouseX;
+    			preY = mouseY;
+    		}
+    	}
+    	function onMouseUp(e){
+    		mouseDown = false;
+    	}
+    </script>
+    </body>
+</html>

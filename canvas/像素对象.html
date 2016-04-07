@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
+   <canvas id="mycanvas" width="3000" height="4000" style="border:1px solid red"></canvas>
+    </body>
+    <script type="text/javascript">
+    	var canvas =document.getElementById("mycanvas");
+    	var context = canvas.getContext("2d");
+    	var imageData = context.createImageData(100,100);//该对象默认为透明黑状态，因此看不见这块区域的像素，因此可以操作其像素使其由不透明和改变颜色
+    	for(var i=0;i<100*100*4;i+=4){
+    		imageData.data[i] =0;
+    		imageData.data[i+1] =0;
+    		imageData.data[i+2] =255;
+    		imageData.data[i+3] =255;
+
+    	}
+    	context.putImageData(imageData,50,50);
+
+
+
+//通过getImaegData()获取画布上的指定像素对象，然后对像素进行反色操作，再绘制到画布上，但这个方法只能在服务器上运行，否则浏览器会报错，任务出现了跨域请求，本地图片地址与请求的不一样，所以跨域
+    	var image = new Image();
+    	image.src = "image/1.jpg";
+    	image.onload = function(){
+    		context.drawImage(image,10,200);
+    		var imageData = context.getImageData(10,200,300,400);
+    		console.log(imageData);
+    		for(var i=0;i<300*400*4;i+=4){
+    			imageData.data[i] = 255 - imageData.data[i];
+    			imageData.data[i+1] = 255 - imageData.data[i+1];
+    			imageData.data[i+2] = 255 - imageData.data[i+2];
+    		}
+    		context.putImageData(imageData,1000,1000);
+    	}
+    </script>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
+    <canvas id="background" width="3000" height="4000" style="border:1px solid red;position:absolute;z-index: 0;"></canvas>
+    <canvas id="mycanvas" width="3000" height="4000" style="border:1px solid red;position: absolute;z-index: 1;"></canvas>
+    <script type="text/javascript">
+    var backCanvas = document.getElementById("background");
+    var backContext = backCanvas.getContext("2d");
+    var background = new Image();
+    background.src = "image/2.jpg";
+    background.onload = function(){
+    	backContext.drawImage(background,0,0);
+    };
+    var canvas = document.getElementById("mycanvas");
+    var context = canvas.getContext("2d");
+    var image = new Image();
+    image.src = "image/1.jpg";
+    image.onload = function(){
+    	var x=-200,y=150;
+    	setInterval(function(){
+    		context.clearRect(0,0,800,374);
+    		context.save();
+    		context.translate(x,y);
+    		context.drawImage(image,0,0);
+    		context.restore();
+    		x+=1;
+    		if(x>=800){
+    			x=-200;
+    		}
+    	},1000/60);
+    };
+
+    </script>
+    </body>
+</html>

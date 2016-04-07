@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
+     <canvas id="mycanvas" width="3000" height="4000" style="border:1px solid red"></canvas>
+     <script type="text/javascript">
+     	var canvas = document.getElementById("mycanvas");
+     	var context = canvas.getContext("2d");
+     	context.lineWidth = 2;
+     	context.strokeRect(10,10,150,100);
+     	context.translate(160,30);
+     	context.strokeRect(10,10,150,100);
+     	var degToRad = Math.PI/180;
+     	context.rotate(30*degToRad);//旋转
+     	context.strokeRect(50,10,150,100);
+     	context.scale(0.5,0.5);//缩放
+     	context.strokeRect(50,50,150,150);
+//如果缩放方法中的参数为负数，效果将是把画布翻转后再进行缩放。
+//缩放把整张画布的坐标值进行了缩放，因此位置发生偏移
+     	var image = new Image();
+     	image.src = "image/1.jpg";
+     	image.onload = function(){
+     		context.drawImage(image,10,10);
+     		context.scale(-0.5,0.5);
+     		context.drawImage(image,-700,100);//因为进行了缩放，所以坐标值也缩小，也就相当于350
+     	}
+
+
+     </script>
+    </body>
+</html>

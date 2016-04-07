@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
+    <canvas id="mycanvas" width="200" height="200" style="border:1px solid red"></canvas>
+    </body>
+    <script type="text/javascript">
+    	var canvas =document.getElementById("mycanvas");
+    	var context = canvas.getContext("2d");
+    	context.fillRect(20,20,150,80);
+    	context.clearRect(30,30,100,40);
+    	context.stroke();
+    </script>
+</html>
